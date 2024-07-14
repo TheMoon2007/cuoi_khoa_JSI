@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="chi_tiet_sp.css">
+    <script src="https://kit.fontawesome.com/666b5872f9.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="tren">
+        <div class="dau">
+            <h1>Course</h1>
+        </div>
+        <div class="giua">
+            <a href="">Trang chủ</a>
+            <a href="">Sản phẩm</a>
+            <a href="">Hàng mới</a>
+            <a href="">Đặc biệt</a>
+            <a href="">Chuyên dùng</a>     
+        </div>
+        <div class="cuoi">
+            <input type="text" id="username" name="username" required>
+            <a><i class="fa-solid fa-magnifying-glass"></i></a>
+            <a><i class="fa-solid fa-cart-shopping"></i></a>
+            <div class="dropdown">
+                <span class="icon-user"><i class="fa-solid fa-user"></i></span>
+                <div class="dropdown-content">
+                    <a href="login.html"><p>Đăng nhập</p></a>
+                    <a href="register.html"><p>Đăng ký</p></a>
+                </div>
+            </div>
+        </div>     
+    </div>
+    
+    <div class="bia">
+        <div class="sp">    
+            <div class="hinh">
+                <img id="hinhanh" src="https://hocmai.vn/course/images/pen-c-tieng-anh-1649866283.png" alt="">
+            </div>
+            <div class="thong_tin">
+                <h3 id="name">PEN-C Tiếng Anh</h3>
+                <span class="review-no">999 reviews</span>
+                <h2 id="gia">Giá hiện tại: <span>500000</span></h2>
+                <h3>Đánh giá</h3>
+                <div class="star_1">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                </div>
+                <div class="so_luong">
+                    <h3>Số lượng:</h3>
+                    <button id="decrementButton">-</button>
+                    <span id="valueDisplay">0</span>
+                    <button id="incrementButton">+</button>
+                </div>
+                <button type="button" id="gio_hang">Thêm vào giỏ hàng </button>
+                <div>
+                    <h2>Chi tiết sản phẩm</h2>
+                    <ul>
+                        <li>Tên khóa học</li>
+                        <li>Giảng viên</li>
+                        <li>Thời lượng khóa học: Tổng số giờ sẽ học</li>
+                        <li>Số video bài giảng trong khóa</li>  
+                        <li>Giá khóa học: Giá niêm yên và giá khuyến mãi (nếu có)</li>                       
+                        <li>Video TVC giới thiệu về khóa học. Sử dụng video giới thiệu giúp khách truy cập hình dung nội dung khóa học một cách dễ dàng hơn thay vì sử dụng một hình ảnh đại diện.</li>                       
+                        <li>Số lượng học viên đã đăng ký mua khóa học này: Đây như một cách để kích thích người dùng mua khóa học của bạn. Càng nhiều người mua chứng tỏ khóa học này chất lượng và được nhiều người quan tâm.</li>  
+                        <li>CTA: Thêm các nút mua ngay/tư vấn để khuyến khích người dùng thực hiện hành động mong muốn.</li>
+                    </ul>
+                </div>
+            </div>
+                
+        </div>
+    </div>
+    
+
+<script>
+    const urlparams=new URLSearchParams(window.location.search);
+    const id=urlparams.get("id");
+    const allProduct =JSON.parse(window.localStorage.getItem("product"));
+    let product="";
+    for(let i=0; i<allProduct.length; i++)
+    {
+        let item=allProduct[i];
+        if(item.id===id)
+        {
+            product=item
+        }
+    }
+    console.log(product);
+    let nameSach= document.getElementById("name");
+    nameSach.innerText=product.name;
+    let hinhanh= document.getElementById("hinhanh");
+    hinhanh.setAttribute("src", product.img)
+    let giaSach=document.getElementById("gia");
+    giaSach.innerText=product.price
+    
+    const decrementButton = document.getElementById('decrementButton');
+        const incrementButton = document.getElementById('incrementButton');
+        const valueDisplay = document.getElementById('valueDisplay');
+
+        let count = 0;
+
+        decrementButton.addEventListener('click', () => {
+            count--;
+            valueDisplay.textContent = count;
+        });
+
+        incrementButton.addEventListener('click', () => {
+            count++;
+            valueDisplay.textContent = count;
+        });
+</script>
+</body>
+<script src="chi_tiet_sp.js"></script>
+</html>

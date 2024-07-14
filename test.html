@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Management</title>
+    <style>
+        /* Add your CSS styles here */
+    </style>
+</head>
+<body>
+    <button id="addProductBtn">Thêm sản phẩm</button>
+    <div id="productModal" style="display: none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="productForm">
+                <label for="productId">ID:</label>
+                <input type="text" id="productId" name="productId" required>
+                <label for="productName">Tên:</label>
+                <input type="text" id="productName" name="productName" required>
+                <label for="productCategory">Danh mục:</label>
+                <input type="text" id="productCategory" name="productCategory" required>
+                <label for="productPrice">Giá:</label>
+                <input type="number" id="productPrice" name="productPrice" required>
+                <label for="productQuantity">Số lượng:</label>
+                <input type="number" id="productQuantity" name="productQuantity" required>
+                <label for="productStatus">Trạng thái:</label>
+                <input type="text" id="productStatus" name="productStatus" required>
+                <button type="submit">Lưu</button>
+            </form>
+        </div>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Tên</th>
+                <th>Hình ảnh</th>
+                <th>Giá</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody id="productTableBody"></tbody>
+    </table>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const addProductBtn = document.getElementById('addProductBtn');
+            const productModal = document.getElementById('productModal');
+            const closeBtn = document.querySelector('.modal-content .close');
+            const productForm = document.getElementById('productForm');
+            const productTableBody = document.getElementById('productTableBody');
+
+            let products = JSON.parse(localStorage.getItem('products')) || [];
+
+            addProductBtn.addEventListener('click', () => {
+                productForm.reset();
+                productForm.setAttribute('data-edit-index', '');
+                productModal.style.display = 'flex';
+            });
+
+            closeBtn.addEventListener('click', () => {
+                productModal.style.display = 'none';
+            });
+
+            window.addEventListener('click', (event) => {
+                if (event.target === productModal) {
+                    productModal.style.display = 'none';
+                }
+            });
+
+            productForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const product = {
+                    id: productForm.productId.value,
+                    name: productForm.productName.value,
+                    category: productForm.productCategory.value,
+                    price: productForm.productPrice.value,
+                    quantity: productForm.productQuantity.value,
+                    status: productForm.productStatus.value
+                };
+
+                const editIndex = productForm.getAttribute('data-edit-index');
+                if (editIndex) {
+                    products[editIndex] = product;
+                } else {
+                    products.push(product);
+                }
+                
+                localStorage.setItem('products', JSON.stringify(products));
+                productModal.style.display = 'none';
+                renderProducts();
+            });
+
+            function renderProducts() {
+                productTableBody.innerHTML = '';
+                products.forEach((product, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${index + 1}</td>
+                        <td>${product.name}</td>
+                        <td><img src=${product.img} alt="Product Image"></td>
+                        <td>${product.price} VND</td>
+                        <td>
+                            <button onclick="editProduct(${index})">Sửa</button>
+                            <button onclick="deleteProduct(${index})">Xóa</button>
+                        </td>
+                    `;
+                    productTableBody.appendChild(row);
+                });
+            }
+
+            renderProducts();
+
+            window.editProduct = function(index) {
+                const product = products[index];
+                productForm.productId.value = product.id;
+                productForm.productName.value = product.name;
+                productForm.productCategory.value = product.category;
+                productForm.productPrice.value = product.price;
+                productForm.productQuantity.value = product.quantity;
+                productForm.productStatus.value = product.status;
+                productForm.setAttribute('data-edit-index', index);
+                productModal.style.display = 'flex';
+            };
+
+            window.deleteProduct = function(index) {
+                products.splice(index, 1);
+                localStorage.setItem('products', JSON.stringify(products));
+                renderProducts();
+            };
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.tren {
+    background-color: black;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 25px;
+    height: 120px;
+}
+.dau h1{
+    margin-left: 10px;
+}
+.giua a{
+    text-align: center;
+    margin-left: 25px; 
+    display: inline;
+    text-decoration: none;
+    justify-content: space-between;
+    color: white;
+}
+.cuoi{
+    margin-right: 10px;
+}
+.cuoi a{
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    margin-left: 15px;
+    display: flex;
+    display: inline;
+    margin-right: 5px;
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+.dropdown-content {
+    right: 0;
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.dropdown-content p{
+    color: black;
+    font-size: 20px;
+    text-decoration: none;
+    display: block;
+    }
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.dropdown-content p:hover {
+    background-color: #f1f1f1;
+}
+.bia {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;  
+    background-size: 100%;
+    background-color: #f1f1f1;
+}
+.sp{
+    background-color: white; 
+    padding: 20px;
+    border-radius: 20px;
+    width: 1000px;
+    color: black;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+#hinhanh {
+    height: 400px;
+    width: 800px;
+    margin-right: 50px;
+}
+.gio_hang{
+    border-radius: 5px;
+}
+.so_luong{
+    display: flex;
+}
