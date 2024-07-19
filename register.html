@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Đăng Ký</title>
+    <link rel="stylesheet" href="register.css">
+</head>
+<body>
+    <form id="nhan">
+        <h2>Đăng Ký</h2>
+        <label for="username">Tài khoản:</label>
+        <input type="text" id="username" name="username" required>
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="phone">Số điện thoại:</label>
+        <input type="tel" id="phone" name="phone" required>
+
+        <label for="gioi_tinh">Giới tính:</label>
+        <input type="text" id="gioi_tinh" name="gioi_tinh" required>
+
+        <label for="password">Mật khẩu:</label>
+        <input type="password" id="password" name="password" required>
+
+        <label for="confirmPassword">Nhập lại mật khẩu:</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" required>
+
+        <button type="submit">Đăng Ký</button>
+    </form>
+</body>
+<script>
+    function getNextId() {
+        let currentId = localStorage.getItem('currentId');
+        if (!currentId) {
+            currentId = 1;
+        } else {
+            currentId = parseInt(currentId) + 1;
+        }
+        localStorage.setItem('currentId', currentId);
+        return currentId;
+    }
+
+    var nhan = document.getElementById("nhan");
+    nhan.addEventListener("submit", function(event) {
+        event.preventDefault();
+        
+        let username = document.getElementById("username").value;
+        let email = document.getElementById("email").value;
+        let phone = document.getElementById("phone").value;
+        let gioi_tinh = document.getElementById("gioi_tinh").value;
+        let password = document.getElementById("password").value;
+        let confirmPassword = document.getElementById("confirmPassword").value;
+        let role = "user";
+        let id = getNextId();
+        
+        let newUser = {
+            id,
+            username,
+            email,
+            phone,
+            password,
+            gioi_tinh,
+            role
+        };
+        
+        if (password === confirmPassword) {
+            let users = JSON.parse(localStorage.getItem("users"));
+            if (users) {
+                users.push(newUser);
+                localStorage.setItem("users", JSON.stringify(users));
+            } else {
+                localStorage.setItem("users", JSON.stringify([newUser]));
+            }
+            alert("Đăng ký thành công");
+            window.location.href = "login.html"; // Change to your success page URL
+        } else {
+            alert("Mật khẩu và xác nhận không trùng khớp");
+        }
+    });
+</script>
+</html>
